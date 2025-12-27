@@ -26,7 +26,12 @@ app.get('/', (req, res) => {
   res.json({ 
     message: '🚀 Automated Labeling API',
     version: '1.0.0',
-    status: 'running'
+    status: 'running',
+    endpoints: {
+      datasets: '/api/datasets',
+      labels: '/api/labels',
+      stats: '/api/stats'
+    }
   });
 });
 
@@ -35,14 +40,15 @@ app.get('/health', (req, res) => {
   res.json({ 
     status: 'OK',
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
+    memory: process.memoryUsage()
   });
 });
 
 // API Routes
 app.use('/api/datasets', require('./routes/dataset.routes'));
-// app.use('/api/labels', require('./routes/label.routes'));  // We'll add this next
-// app.use('/api/stats', require('./routes/stats.routes'));   // We'll add this next
+app.use('/api/labels', require('./routes/label.routes'));
+app.use('/api/stats', require('./routes/stats.routes'));
 
 // Error handling middleware (must be last)
 app.use(errorHandler);
@@ -59,9 +65,27 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log('\n🚀 Server Started Successfully!');
-  console.log(`📡 Server running on port ${PORT}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV}`);
-  console.log(`🔗 API URL: http://localhost:${PORT}`);
-  console.log(`💡 Press CTRL+C to stop\n`);
+  console.log('\n' + '='.repeat(50));
+  console.log('🚀 Automated Labeling Dashboard - Backend');
+  console.log('='.repeat(50));
+  console.log(`📡 Server: http://localhost:${PORT}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`📊 Database: Connected`);
+  console.log('='.repeat(50));
+  console.log('\n📚 Available Routes:');
+  console.log('   GET    /');
+  console.log('   GET    /health');
+  console.log('   POST   /api/datasets/upload');
+  console.log('   GET    /api/datasets');
+  console.log('   GET    /api/datasets/:id');
+  console.log('   POST   /api/datasets/:id/configure');
+  console.log('   POST   /api/labels/dataset/:id/label');
+  console.log('   GET    /api/labels/dataset/:id/review-queue');
+  console.log('   PUT    /api/labels/:id');
+  console.log('   POST   /api/labels/batch-accept');
+  console.log('   GET    /api/stats/dataset/:id/progress');
+  console.log('   GET    /api/stats/dataset/:id/statistics');
+  console.log('   GET    /api/stats/dataset/:id/queue-summary');
+  console.log('   GET    /api/stats/dataset/:id/export');
+  console.log('\n💡 Press CTRL+C to stop\n');
 });

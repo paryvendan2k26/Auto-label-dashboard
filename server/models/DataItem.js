@@ -89,7 +89,7 @@ const dataItemSchema = new mongoose.Schema({
 // Update 'updatedAt' on every save
 dataItemSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
-
+  next();
 });
 
 // Compound indexes for smart queue queries (CRITICAL for performance)
@@ -132,41 +132,65 @@ dataItemSchema.methods.modifyLabel = async function(newLabel, reviewedBy = 'user
 };
 
 // Static method to get queue summary
+// Static method to get queue summary
 dataItemSchema.statics.getQueueSummary = async function(datasetId) {
-  const summary = await this.aggregate([
-    { $match: { datasetId: mongoose.Types.ObjectId(datasetId) } },
-    { 
-      $group: {
-        _id: '$reviewStatus',
-        count: { $sum: 1 },
-        avgConfidence: { $avg: '$aiConfidence' }
-      }
+  try {
+    const mongoose = require('mongoose');
+    
+    // Convert string to ObjectId properly
+    let objectId;
+    if (typeof datasetId === 'string') {
+      objectId = new mongoose.Types.ObjectId(datasetId);
+    } else {
+      objectId = datasetId;
     }
-  ]);
-  
-  const reviewed = await this.countDocuments({
-    datasetId: mongoose.Types.ObjectId(datasetId),
-    humanLabel: { $ne: null }
-  });
-  
-  // Format response
-  const result = {
-    pending: 0,
-    auto_accepted: 0,
-    needs_review: 0,
-    low_confidence: 0,
-    reviewed: reviewed
-  };
-  
-  summary.forEach(item => {
-    result[item._id] = item.count;
-  });
-  
-  result.total = Object.values(result).reduce((a, b) => a + b, 0) - reviewed;
-  result.pendingReview = result.needs_review + result.low_confidence - reviewed;
-  
-  return result;
+    
+    // Get all items grouped by review status
+    const summary = await this.aggregate([
+      { $match: { datasetId: objectId } },
+      { 
+        $group: {
+          _id: '$reviewStatus',
+          count: { $sum: 1 },
+          avgConfidence: { $avg: '$aiConfidence' }
+        }
+      }
+    ]);
+    
+    // Count reviewed items
+    const reviewed = await this.countDocuments({
+      datasetId: objectId,
+      humanLabel: { $ne: null }
+    });
+    
+    // Format response with default values
+    const result = {
+      pending: 0,
+      auto_accepted: 0,
+      needs_review: 0,
+      low_confidence: 0,
+      reviewed: reviewed
+    };
+    
+    // Map aggregation results to result object
+    summary.forEach(item => {
+      if (item._id) {
+        result[item._id] = item.count;
+      }
+    });
+    
+    // Calculate totals
+    result.total = result.pending + result.auto_accepted + result.needs_review + result.low_confidence;
+    result.pendingReview = Math.max(0, result.needs_review + result.low_confidence - reviewed);
+    
+    return result;
+    
+  } catch (error) {
+    console.error('❌ Error in getQueueSummary:', error);
+    throw error;
+  }
 };
+
 
 const DataItem = mongoose.model('DataItem', dataItemSchema);
 
