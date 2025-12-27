@@ -89,7 +89,6 @@ const dataItemSchema = new mongoose.Schema({
 // Update 'updatedAt' on every save
 dataItemSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
-  next();
 });
 
 // Compound indexes for smart queue queries (CRITICAL for performance)

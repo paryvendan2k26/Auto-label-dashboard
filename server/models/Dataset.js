@@ -87,7 +87,6 @@ const datasetSchema = new mongoose.Schema({
 // Update 'updatedAt' on every save
 datasetSchema.pre('save', function(next) {
   this.updatedAt = Date.now();
-  next();
 });
 
 // Instance method to update stats
