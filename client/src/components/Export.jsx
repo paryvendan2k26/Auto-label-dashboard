@@ -56,7 +56,7 @@ function Export({ datasetId, datasetName }) {
         <Descriptions bordered column={1}>
           <Descriptions.Item label="Export Format">CSV</Descriptions.Item>
           <Descriptions.Item label="Includes">
-            Original data + AI labels + Confidence scores + Human reviews
+            Original data + AI labels + Confidence scores + Review status
           </Descriptions.Item>
           <Descriptions.Item label="File Name">
             {datasetName}-labeled.csv
@@ -83,12 +83,9 @@ function Export({ datasetId, datasetName }) {
         }}>
           <strong>📝 Note:</strong> The exported CSV includes all original columns plus:
           <ul style={{ marginTop: 8, marginBottom: 0 }}>
-            <li><code>ai_label</code> - Label assigned by AI</li>
+            <li><code>ai_label</code> - Final label (AI assigned or manually edited)</li>
             <li><code>ai_confidence</code> - Confidence score (0-1)</li>
-            <li><code>ai_reasoning</code> - AI's reasoning for the label</li>
-            <li><code>human_label</code> - Your corrected label (if modified)</li>
-            <li><code>review_status</code> - auto_accepted, needs_review, etc.</li>
-            <li><code>reviewed_at</code> - Timestamp of human review</li>
+            <li><code>review_status</code> - auto_accepted, needs_review, low_confidence, reviewed</li>
           </ul>
         </div>
       </Space>

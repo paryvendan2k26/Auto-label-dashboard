@@ -4,13 +4,13 @@ import {
   CheckOutlined, 
   EditOutlined, 
   EyeOutlined,
-  SyncOutlined 
+  SyncOutlined,
+  CheckCircleOutlined
 } from '@ant-design/icons';
 import { apiService } from '../services/api';
 import { formatConfidence, getReviewStatusColor } from '../utils/formatters';
 
 const { Option } = Select;
-const { TextArea } = Input;
 
 function ReviewQueue({ datasetId }) {
   const [items, setItems] = useState([]);
@@ -70,6 +70,17 @@ function ReviewQueue({ datasetId }) {
       fetchSummary();
     } catch (error) {
       message.error('Failed to accept label');
+    }
+  };
+
+  const handleAcceptAll = async () => {
+    try {
+      const response = await apiService.batchAccept(datasetId);
+      message.success(`Accepted ${response.data.data.acceptedCount} items!`);
+      fetchQueue();
+      fetchSummary();
+    } catch (error) {
+      message.error('Failed to accept all items');
     }
   };
 
@@ -190,6 +201,14 @@ function ReviewQueue({ datasetId }) {
               <Option value="random">Random</Option>
             </Select>
             <Button 
+              type="primary"
+              icon={<CheckCircleOutlined />}
+              onClick={handleAcceptAll}
+              disabled={!summary || summary.pendingReview === 0}
+            >
+              Accept All
+            </Button>
+            <Button 
               icon={<SyncOutlined />} 
               onClick={fetchQueue}
             >
@@ -254,14 +273,15 @@ function ReviewQueue({ datasetId }) {
 
       {/* Review Modal */}
       <Modal
-        title={<><EyeOutlined /> Review Item</>}
+        title={<><EyeOutlined /> Edit Label</>}
         open={reviewModal}
         onOk={handleSaveEdit}
         onCancel={() => {
           setReviewModal(false);
           setCurrentItem(null);
+          setNewLabel('');
         }}
-        okText="Save Changes"
+        okText="Save Label"
       >
         {currentItem && (
           <Space direction="vertical" style={{ width: '100%' }} size="large">
@@ -280,27 +300,18 @@ function ReviewQueue({ datasetId }) {
             </div>
 
             <div>
-              <strong>AI Label:</strong> <Tag color="blue">{currentItem.aiLabel}</Tag>
+              <strong>Current Label:</strong> <Tag color="blue">{currentItem.aiLabel}</Tag>
               <div style={{ marginTop: 4, fontSize: 12, color: '#666' }}>
                 Confidence: {formatConfidence(currentItem.aiConfidence)}
               </div>
             </div>
 
-            {currentItem.aiReasoning && (
-              <div>
-                <strong>AI Reasoning:</strong>
-                <div style={{ marginTop: 4, fontSize: 12, color: '#666' }}>
-                  {currentItem.aiReasoning}
-                </div>
-              </div>
-            )}
-
             <div>
-              <strong>Your Label:</strong>
+              <strong>Edit Label:</strong>
               <Input
                 value={newLabel}
                 onChange={(e) => setNewLabel(e.target.value)}
-                placeholder="Enter new label"
+                placeholder="Enter new label (will overwrite current label)"
                 style={{ marginTop: 8 }}
               />
             </div>

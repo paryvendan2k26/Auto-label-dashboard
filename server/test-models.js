@@ -82,7 +82,7 @@ async function testModels() {
     
     const reviewed = await DataItem.countDocuments({
       datasetId: dataset._id,
-      humanLabel: { $ne: null }
+      reviewStatus: 'reviewed'
     });
     
     const result = {
@@ -111,13 +111,13 @@ async function testModels() {
     // Test 6: Accept a label
     console.log('\n📝 Test 6: Accepting a label...');
     const itemToAccept = await DataItem.findById(createdItems[1]._id);
-    await itemToAccept.acceptLabel('test-user');
+    await itemToAccept.acceptLabel();
     console.log('✅ Label accepted for item:', itemToAccept._id);
     
     // Test 7: Modify a label
     console.log('\n📝 Test 7: Modifying a label...');
     const itemToModify = await DataItem.findById(createdItems[2]._id);
-    await itemToModify.modifyLabel('negative', 'test-user');
+    await itemToModify.modifyLabel('negative');
     console.log('✅ Label modified for item:', itemToModify._id);
     
     // Cleanup

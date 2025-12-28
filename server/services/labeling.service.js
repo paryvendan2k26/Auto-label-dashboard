@@ -318,7 +318,6 @@ Rules:
             update: {
               aiLabel: label.label,
               aiConfidence: Math.min(Math.max(label.confidence, 0), 1), // Clamp 0-1
-              aiReasoning: label.reasoning || '',
               reviewStatus: this.determineReviewStatus(label.confidence),
               labeledAt: new Date()
             }

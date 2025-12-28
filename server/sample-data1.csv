@@ -1,0 +1,201 @@
+id,text,createdAt,status
+T001,"I was charged twice for my subscription this month",2025-01-01,pending
+T002,"The app crashes whenever I upload a file",2025-01-01,pending
+T003,"Please add dark mode to the dashboard",2025-01-01,pending
+T004,"I forgot my password and cannot log in",2025-01-01,pending
+T005,"Great service and fast response from support",2025-01-01,pending
+T006,"Refund is not processed even after 7 days",2025-01-02,pending
+T007,"Login page shows a 500 error",2025-01-02,pending
+T008,"Can you add export to Excel feature?",2025-01-02,pending
+T009,"My account was suspended without explanation",2025-01-02,pending
+T010,"Everything works perfectly, thanks!",2025-01-02,pending
+T011,"Payment failed but amount deducted",2025-01-03,pending
+T012,"App is very slow on Android devices",2025-01-03,pending
+T013,"Need help updating my email address",2025-01-03,pending
+T014,"Feature request: multi-language support",2025-01-03,pending
+T015,"Customer support resolved my issue quickly",2025-01-03,pending
+T016,"Unable to download invoice for last month",2025-01-04,pending
+T017,"App freezes on startup",2025-01-04,pending
+T018,"Please provide API documentation",2025-01-04,pending
+T019,"Account verification email not received",2025-01-04,pending
+T020,"Really happy with the new update",2025-01-04,pending
+T021,"Charged extra tax incorrectly",2025-01-05,pending
+T022,"Notifications are not working",2025-01-05,pending
+T023,"Can you add role-based access?",2025-01-05,pending
+T024,"Unable to reset password",2025-01-05,pending
+T025,"Support team was very polite and helpful",2025-01-05,pending
+T026,"Refund amount mismatch",2025-01-06,pending
+T027,"Mobile app crashes after login",2025-01-06,pending
+T028,"Requesting feature to schedule reports",2025-01-06,pending
+T029,"My account got locked after failed attempts",2025-01-06,pending
+T030,"Excellent user experience overall",2025-01-06,pending
+T031,"Subscription auto-renewed without consent",2025-01-07,pending
+T032,"File upload stuck at 99 percent",2025-01-07,pending
+T033,"Please add support for CSV import",2025-01-07,pending
+T034,"Cannot change my phone number",2025-01-07,pending
+T035,"Very smooth onboarding process",2025-01-07,pending
+T036,"Invoice shows incorrect billing address",2025-01-08,pending
+T037,"App logs me out frequently",2025-01-08,pending
+T038,"Feature request: audit logs",2025-01-08,pending
+T039,"Email notifications delayed",2025-01-08,pending
+T040,"Really impressed with customer service",2025-01-08,pending
+T041,"Payment gateway timeout issue",2025-01-09,pending
+T042,"Search functionality not returning results",2025-01-09,pending
+T043,"Need bulk user upload feature",2025-01-09,pending
+T044,"Unable to update profile picture",2025-01-09,pending
+T045,"Product quality is excellent",2025-01-09,pending
+T046,"Refund request rejected incorrectly",2025-01-10,pending
+T047,"Dashboard graphs not loading",2025-01-10,pending
+T048,"Feature request: two-factor authentication",2025-01-10,pending
+T049,"Account email changed without permission",2025-01-10,pending
+T050,"Support resolved issue within minutes",2025-01-10,pending
+T051,"Incorrect subscription plan applied",2025-01-11,pending
+T052,"App consumes too much battery",2025-01-11,pending
+T053,"Need webhook support",2025-01-11,pending
+T054,"Unable to deactivate account",2025-01-11,pending
+T055,"Love the new UI design",2025-01-11,pending
+T056,"Double charged after plan upgrade",2025-01-12,pending
+T057,"Reports page shows blank screen",2025-01-12,pending
+T058,"Feature request: custom dashboards",2025-01-12,pending
+T059,"Password reset link expired immediately",2025-01-12,pending
+T060,"Customer support exceeded expectations",2025-01-12,pending
+T061,"Payment receipt not emailed",2025-01-13,pending
+T062,"App crashes on iOS after update",2025-01-13,pending
+T063,"Need SSO login support",2025-01-13,pending
+T064,"Unable to verify phone number",2025-01-13,pending
+T065,"Really satisfied with the service",2025-01-13,pending
+T066,"Unexpected charge on credit card",2025-01-14,pending
+T067,"Notifications panel not opening",2025-01-14,pending
+T068,"Feature request: data export API",2025-01-14,pending
+T069,"Account shows wrong username",2025-01-14,pending
+T070,"Great experience so far",2025-01-14,pending
+T071,"Billing cycle changed without notice",2025-01-15,pending
+T072,"App lag when switching tabs",2025-01-15,pending
+T073,"Requesting advanced search filters",2025-01-15,pending
+T074,"Cannot delete old projects",2025-01-15,pending
+T075,"Very helpful documentation",2025-01-15,pending
+T076,"Refund not reflecting in bank",2025-01-16,pending
+T077,"Export feature not working",2025-01-16,pending
+T078,"Feature request: dark theme scheduler",2025-01-16,pending
+T079,"Account locked unexpectedly",2025-01-16,pending
+T080,"Support team did a great job",2025-01-16,pending
+T081,"Incorrect GST applied in invoice",2025-01-17,pending
+T082,"App crashes during report generation",2025-01-17,pending
+T083,"Need multi-tenant support",2025-01-17,pending
+T084,"Unable to add secondary email",2025-01-17,pending
+T085,"Overall very satisfied",2025-01-17,pending
+T086,"Duplicate transaction in billing history",2025-01-18,pending
+T087,"Charts not rendering properly",2025-01-18,pending
+T088,"Feature request: offline mode",2025-01-18,pending
+T089,"Account shows incorrect timezone",2025-01-18,pending
+T090,"App performance has improved a lot",2025-01-18,pending
+T091,"Charged after cancelling subscription",2025-01-19,pending
+T092,"Unable to generate PDF reports",2025-01-19,pending
+T093,"Need audit trail for changes",2025-01-19,pending
+T094,"Password change not saved",2025-01-19,pending
+T095,"Excellent platform overall",2025-01-19,pending
+T096,"Payment confirmation delayed",2025-01-20,pending
+T097,"App crashes on low network",2025-01-20,pending
+T098,"Feature request: notification rules",2025-01-20,pending
+T099,"Account name duplicated",2025-01-20,pending
+T100,"Support experience was smooth",2025-01-20,pending
+T101,"Billing amount incorrect again",2025-01-21,pending
+T102,"Search is very slow",2025-01-21,pending
+T103,"Feature request: saved filters",2025-01-21,pending
+T104,"Unable to upload profile image",2025-01-21,pending
+T105,"Really enjoying the app",2025-01-21,pending
+T106,"Refund partially processed",2025-01-22,pending
+T107,"Dashboard takes too long to load",2025-01-22,pending
+T108,"Need custom roles support",2025-01-22,pending
+T109,"Account shows wrong plan",2025-01-22,pending
+T110,"Customer service was friendly",2025-01-22,pending
+T111,"Unexpected annual charge",2025-01-23,pending
+T112,"App crashes when opening settings",2025-01-23,pending
+T113,"Feature request: report scheduling",2025-01-23,pending
+T114,"Unable to connect Google account",2025-01-23,pending
+T115,"Everything works as expected",2025-01-23,pending
+T116,"Duplicate invoice generated",2025-01-24,pending
+T117,"Notifications not clearing",2025-01-24,pending
+T118,"Feature request: email templates",2025-01-24,pending
+T119,"Account deactivated unexpectedly",2025-01-24,pending
+T120,"Great product and support",2025-01-24,pending
+T121,"Wrong discount applied",2025-01-25,pending
+T122,"App hangs during login",2025-01-25,pending
+T123,"Feature request: activity logs",2025-01-25,pending
+T124,"Unable to update billing info",2025-01-25,pending
+T125,"Very good experience",2025-01-25,pending
+T126,"Refund still pending",2025-01-26,pending
+T127,"Reports export fails",2025-01-26,pending
+T128,"Feature request: dashboard widgets",2025-01-26,pending
+T129,"Account shows incorrect role",2025-01-26,pending
+T130,"Support team is amazing",2025-01-26,pending
+T131,"Charged twice again",2025-01-27,pending
+T132,"App crashes on notifications click",2025-01-27,pending
+T133,"Need data retention settings",2025-01-27,pending
+T134,"Unable to remove old users",2025-01-27,pending
+T135,"Product is very reliable",2025-01-27,pending
+T136,"Billing summary incorrect",2025-01-28,pending
+T137,"Dashboard widgets missing",2025-01-28,pending
+T138,"Feature request: custom alerts",2025-01-28,pending
+T139,"Account language reset automatically",2025-01-28,pending
+T140,"Nice and clean interface",2025-01-28,pending
+T141,"Payment pending too long",2025-01-29,pending
+T142,"App slow after update",2025-01-29,pending
+T143,"Feature request: bulk actions",2025-01-29,pending
+T144,"Unable to archive projects",2025-01-29,pending
+T145,"Overall satisfied",2025-01-29,pending
+T146,"Refund denied without reason",2025-01-30,pending
+T147,"Graphs not updating in real time",2025-01-30,pending
+T148,"Feature request: API rate limits view",2025-01-30,pending
+T149,"Account data not syncing",2025-01-30,pending
+T150,"Support was prompt and helpful",2025-01-30,pending
+T151,"Extra charge for add-ons",2025-01-31,pending
+T152,"App crashes on logout",2025-01-31,pending
+T153,"Feature request: usage analytics",2025-01-31,pending
+T154,"Unable to change password",2025-01-31,pending
+T155,"Really good platform",2025-01-31,pending
+T156,"Billing receipt missing",2025-02-01,pending
+T157,"Search filter not working",2025-02-01,pending
+T158,"Feature request: custom permissions",2025-02-01,pending
+T159,"Account timezone incorrect",2025-02-01,pending
+T160,"Customer support was excellent",2025-02-01,pending
+T161,"Charged after trial period ended",2025-02-02,pending
+T162,"App crashes during onboarding",2025-02-02,pending
+T163,"Feature request: email reports",2025-02-02,pending
+T164,"Unable to update company details",2025-02-02,pending
+T165,"Great performance overall",2025-02-02,pending
+T166,"Refund amount wrong",2025-02-03,pending
+T167,"Dashboard loading spinner stuck",2025-02-03,pending
+T168,"Feature request: SLA tracking",2025-02-03,pending
+T169,"Account shows wrong currency",2025-02-03,pending
+T170,"Very intuitive UI",2025-02-03,pending
+T171,"Unexpected monthly charge",2025-02-04,pending
+T172,"App freezes when scrolling",2025-02-04,pending
+T173,"Feature request: role cloning",2025-02-04,pending
+T174,"Unable to connect payment method",2025-02-04,pending
+T175,"Support team resolved my issue",2025-02-04,pending
+T176,"Billing history missing entries",2025-02-05,pending
+T177,"Export to CSV broken",2025-02-05,pending
+T178,"Feature request: keyboard shortcuts",2025-02-05,pending
+T179,"Account preferences not saving",2025-02-05,pending
+T180,"Happy with the product",2025-02-05,pending
+T181,"Charged incorrect upgrade fee",2025-02-06,pending
+T182,"App crashes on older devices",2025-02-06,pending
+T183,"Feature request: notification summary",2025-02-06,pending
+T184,"Unable to assign roles",2025-02-06,pending
+T185,"Support response time is great",2025-02-06,pending
+T186,"Refund taking too long",2025-02-07,pending
+T187,"Dashboard stats incorrect",2025-02-07,pending
+T188,"Feature request: usage alerts",2025-02-07,pending
+T189,"Account locked after password change",2025-02-07,pending
+T190,"Really good experience overall",2025-02-07,pending
+T191,"Charged despite cancellation",2025-02-08,pending
+T192,"App crashes on startup occasionally",2025-02-08,pending
+T193,"Feature request: user activity feed",2025-02-08,pending
+T194,"Unable to restore deleted data",2025-02-08,pending
+T195,"Product quality is top-notch",2025-02-08,pending
+T196,"Billing invoice duplicated",2025-02-09,pending
+T197,"Notifications delayed again",2025-02-09,pending
+T198,"Feature request: data versioning",2025-02-09,pending
+T199,"Account email verification failed",2025-02-09,pending
+T200,"Support experience was excellent",2025-02-09,pending

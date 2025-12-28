@@ -150,10 +150,7 @@ router.get('/dataset/:id/export', async (req, res) => {
       ...originalKeys,
       'ai_label',
       'ai_confidence',
-      'ai_reasoning',
-      'human_label',
-      'review_status',
-      'reviewed_at'
+      'review_status'
     ];
     csvRows.push(headers.join(','));
     
@@ -172,10 +169,7 @@ router.get('/dataset/:id/export', async (req, res) => {
       // Label columns
       row.push(`"${item.aiLabel || ''}"`);
       row.push(item.aiConfidence || '');
-      row.push(`"${item.aiReasoning || ''}"`);
-      row.push(`"${item.humanLabel || ''}"`);
       row.push(`"${item.reviewStatus || ''}"`);
-      row.push(item.reviewedAt ? item.reviewedAt.toISOString() : '');
       
       csvRows.push(row.join(','));
     });

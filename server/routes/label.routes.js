@@ -91,11 +91,10 @@ router.get('/dataset/:id/review-queue', async (req, res) => {
       datasetObjectId = id;
     }
     
-    // Build query - only items that need review
+    // Build query - only items that need review (not yet reviewed)
     const query = {
       datasetId: datasetObjectId,
-      reviewStatus: { $in: ['needs_review', 'low_confidence'] },
-      humanLabel: null
+      reviewStatus: { $in: ['needs_review', 'low_confidence'] }
     };
     
     // Determine sort order
@@ -162,13 +161,13 @@ router.get('/dataset/:id/review-queue', async (req, res) => {
 });
 /**
  * @route   PUT /api/labels/:id
- * @desc    Accept or modify a label
+ * @desc    Accept or modify a label (directly overwrites aiLabel)
  * @access  Public
  */
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const { action, newLabel, reviewedBy = 'user' } = req.body;
+    const { action, newLabel } = req.body;
     
     // Validate action
     if (!action || !['accept', 'modify'].includes(action)) {
@@ -189,7 +188,7 @@ router.put('/:id', async (req, res) => {
     
     // Perform action
     if (action === 'accept') {
-      await item.acceptLabel(reviewedBy);
+      await item.acceptLabel();
       console.log(`✅ Label accepted for item ${id}`);
     } else if (action === 'modify') {
       if (!newLabel) {
@@ -198,19 +197,20 @@ router.put('/:id', async (req, res) => {
           error: 'newLabel is required for modify action'
         });
       }
-      await item.modifyLabel(newLabel, reviewedBy);
-      console.log(`✏️  Label modified for item ${id}: ${item.aiLabel} → ${newLabel}`);
+      await item.modifyLabel(newLabel);
+      console.log(`✏️  Label modified for item ${id}: ${newLabel}`);
     }
+    
+    // Refresh item to get updated data
+    const updatedItem = await DataItem.findById(id);
     
     res.json({
       success: true,
       message: `Label ${action}ed successfully`,
       data: {
-        itemId: item._id,
-        aiLabel: item.aiLabel,
-        humanLabel: item.humanLabel,
-        reviewAction: item.reviewAction,
-        reviewedAt: item.reviewedAt
+        itemId: updatedItem._id,
+        aiLabel: updatedItem.aiLabel,
+        reviewStatus: updatedItem.reviewStatus
       }
     });
     
@@ -225,42 +225,38 @@ router.put('/:id', async (req, res) => {
 
 /**
  * @route   POST /api/labels/batch-accept
- * @desc    Accept multiple labels at once
+ * @desc    Accept all items in review queue (mark as reviewed)
  * @access  Public
  */
 router.post('/batch-accept', async (req, res) => {
   try {
-    const { itemIds, reviewedBy = 'user' } = req.body;
+    const { datasetId } = req.body;
     
-    if (!Array.isArray(itemIds) || itemIds.length === 0) {
+    if (!datasetId) {
       return res.status(400).json({
         success: false,
-        error: 'itemIds array is required'
+        error: 'datasetId is required'
       });
     }
     
-    // Get all items first
-    const items = await DataItem.find({ _id: { $in: itemIds } });
+    // Update all items that need review to reviewed status
+    const result = await DataItem.updateMany(
+      { 
+        datasetId: datasetId,
+        reviewStatus: { $in: ['needs_review', 'low_confidence'] }
+      },
+      { 
+        reviewStatus: 'reviewed'
+      }
+    );
     
-    // Update each item to copy aiLabel to humanLabel
-    const updates = items.map(item => {
-      item.humanLabel = item.aiLabel;
-      item.reviewAction = 'accepted';
-      item.reviewedBy = reviewedBy;
-      item.reviewedAt = new Date();
-      item.reviewStatus = 'reviewed';
-      return item.save();
-    });
-    
-    await Promise.all(updates);
-    
-    console.log(`✅ Batch accepted ${items.length} items`);
+    console.log(`✅ Batch accepted ${result.modifiedCount} items`);
     
     res.json({
       success: true,
-      message: `${items.length} items accepted`,
+      message: `${result.modifiedCount} items accepted`,
       data: {
-        acceptedCount: items.length
+        acceptedCount: result.modifiedCount
       }
     });
     

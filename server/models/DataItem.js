@@ -33,12 +33,6 @@ const dataItemSchema = new mongoose.Schema({
     max: 1
   },
   
-  aiReasoning: {
-    type: String,
-    default: null,
-    trim: true
-  },
-  
   labeledAt: {
     type: Date,
     default: null
@@ -49,29 +43,6 @@ const dataItemSchema = new mongoose.Schema({
     type: String,
     enum: ['pending', 'auto_accepted', 'needs_review', 'low_confidence', 'reviewed'],
     default: 'pending'
-  },
-  
-  // Human Review
-  humanLabel: {
-    type: String,
-    default: null,
-    trim: true
-  },
-  
-  reviewAction: {
-    type: String,
-    enum: ['accepted', 'modified', 'skipped'],
-    default: null
-  },
-  
-  reviewedBy: {
-    type: String,
-    default: null
-  },
-  
-  reviewedAt: {
-    type: Date,
-    default: null
   },
   
   // Timestamps
@@ -98,34 +69,21 @@ dataItemSchema.index({
   aiConfidence: 1 
 });
 
-// Index for finding unreviewed items
-dataItemSchema.index({ 
-  datasetId: 1, 
-  humanLabel: 1 
-});
-
 // Index for finding unlabeled items
 dataItemSchema.index({ 
   datasetId: 1, 
   aiLabel: 1 
 });
 
-// Instance method to accept AI label
-dataItemSchema.methods.acceptLabel = async function(reviewedBy = 'user') {
-  this.humanLabel = this.aiLabel;
-  this.reviewAction = 'accepted';
-  this.reviewedBy = reviewedBy;
-  this.reviewedAt = Date.now();
+// Instance method to accept AI label (mark as reviewed, keep aiLabel)
+dataItemSchema.methods.acceptLabel = async function() {
   this.reviewStatus = 'reviewed';
   await this.save();
 };
 
-// Instance method to modify label
-dataItemSchema.methods.modifyLabel = async function(newLabel, reviewedBy = 'user') {
-  this.humanLabel = newLabel;
-  this.reviewAction = 'modified';
-  this.reviewedBy = reviewedBy;
-  this.reviewedAt = Date.now();
+// Instance method to modify label (directly update aiLabel)
+dataItemSchema.methods.modifyLabel = async function(newLabel) {
+  this.aiLabel = newLabel;
   this.reviewStatus = 'reviewed';
   await this.save();
 };
@@ -156,10 +114,10 @@ dataItemSchema.statics.getQueueSummary = async function(datasetId) {
       }
     ]);
     
-    // Count reviewed items
+    // Count reviewed items (items with reviewStatus = 'reviewed')
     const reviewed = await this.countDocuments({
       datasetId: objectId,
-      humanLabel: { $ne: null }
+      reviewStatus: 'reviewed'
     });
     
     // Format response with default values

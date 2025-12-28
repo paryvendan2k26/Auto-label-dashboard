@@ -59,14 +59,14 @@ export const apiService = {
   getReviewQueue: (datasetId, params = {}) => 
     api.get(`/labels/dataset/${datasetId}/review-queue`, { params }),
 
-  acceptLabel: (itemId, reviewedBy = 'user') => 
-    api.put(`/labels/${itemId}`, { action: 'accept', reviewedBy }),
+  acceptLabel: (itemId) => 
+    api.put(`/labels/${itemId}`, { action: 'accept' }),
 
-  modifyLabel: (itemId, newLabel, reviewedBy = 'user') => 
-    api.put(`/labels/${itemId}`, { action: 'modify', newLabel, reviewedBy }),
+  modifyLabel: (itemId, newLabel) => 
+    api.put(`/labels/${itemId}`, { action: 'modify', newLabel }),
 
-  batchAccept: (itemIds, reviewedBy = 'user') => 
-    api.post('/labels/batch-accept', { itemIds, reviewedBy }),
+  batchAccept: (datasetId) => 
+    api.post('/labels/batch-accept', { datasetId }),
 
   // Statistics operations
   getProgress: (datasetId) => api.get(`/stats/dataset/${datasetId}/progress`),

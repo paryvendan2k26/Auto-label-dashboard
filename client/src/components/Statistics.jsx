@@ -48,7 +48,7 @@ function Statistics({ datasetId }) {
     return null;
   }
 
-  const { dataset, progress, stats, labelDistribution, avgConfidence } = statistics;
+  const { dataset, progress, stats, labelDistribution, confidenceDistribution, avgConfidence } = statistics;
 
   // Prepare chart data
   const labelChartData = labelDistribution.map(item => ({
@@ -62,6 +62,12 @@ function Statistics({ datasetId }) {
     { name: 'Needs Review', value: stats.needsReviewItems, color: '#faad14' },
     { name: 'Low Confidence', value: stats.lowConfidenceItems, color: '#ff4d4f' },
   ].filter(item => item.value > 0);
+
+  // Prepare confidence distribution histogram data
+  const confidenceHistogramData = confidenceDistribution?.map(item => ({
+    range: item.range,
+    count: item.count
+  })) || [];
 
   // Calculate metrics
   const timeSaved = Math.round(stats.totalItems * 0.02 / 60); // 2 sec per item manually
@@ -152,7 +158,7 @@ function Statistics({ datasetId }) {
         {/* Charts */}
         <Row gutter={16}>
           {/* Label Distribution */}
-          <Col xs={24} lg={12}>
+          <Col xs={24} lg={8}>
             <Card title="📊 Label Distribution" size="small">
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
@@ -177,8 +183,38 @@ function Statistics({ datasetId }) {
             </Card>
           </Col>
 
+          {/* Confidence Distribution Histogram */}
+          <Col xs={24} lg={8}>
+            <Card title="📈 Confidence Distribution" size="small">
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={confidenceHistogramData}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis 
+                    dataKey="range" 
+                    angle={-45}
+                    textAnchor="end"
+                    height={80}
+                  />
+                  <YAxis />
+                  <Tooltip />
+                  <Legend />
+                  <Bar dataKey="count" fill="#1890ff">
+                    {confidenceHistogramData.map((entry, index) => {
+                      // Color based on confidence range
+                      let color = '#1890ff';
+                      if (entry.range.includes('0.9-1.0')) color = '#52c41a';
+                      else if (entry.range.includes('0.8-0.9') || entry.range.includes('0.7-0.8')) color = '#faad14';
+                      else if (entry.range.includes('0.5-0.7') || entry.range.includes('0.0-0.5')) color = '#ff4d4f';
+                      return <Cell key={`cell-${index}`} fill={color} />;
+                    })}
+                  </Bar>
+                </BarChart>
+              </ResponsiveContainer>
+            </Card>
+          </Col>
+
           {/* Review Status Chart */}
-          <Col xs={24} lg={12}>
+          <Col xs={24} lg={8}>
             <Card title="⚡ Review Status" size="small">
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={reviewStatusData}>

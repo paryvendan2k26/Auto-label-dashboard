@@ -106,7 +106,7 @@ datasetSchema.methods.updateStats = async function() {
   
   const reviewed = await DataItem.countDocuments({
     datasetId: this._id,
-    humanLabel: { $ne: null }
+    reviewStatus: 'reviewed'
   });
   
   // Update stats object
