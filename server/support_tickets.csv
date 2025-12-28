@@ -1,0 +1,18 @@
+id,text,createdAt,status
+ST001,"Charged twice for my monthly subscription",2025-02-01,pending
+ST002,"App crashes when uploading profile picture",2025-02-01,pending
+ST003,"Please add dark mode feature",2025-02-02,pending
+ST004,"Unable to reset password",2025-02-02,pending
+ST005,"Support team resolved my issue quickly",2025-02-03,pending
+ST006,"Refund not processed after 10 days",2025-02-03,pending
+ST007,"Dashboard not loading charts",2025-02-04,pending
+ST008,"Need export to Excel functionality",2025-02-04,pending
+ST009,"Account suspended without notice",2025-02-05,pending
+ST010,"Everything works fine, great app",2025-02-05,pending
+ST011,"Payment failed but money deducted",2025-02-06,pending
+ST012,"Mobile app very slow after update",2025-02-06,pending
+ST013,"Need help changing email address",2025-02-07,pending
+ST014,"Feature request: two factor authentication",2025-02-07,pending
+ST015,"Customer service was polite and helpful",2025-02-08,pending
+ST016,"Unable to download last invoice",2025-02-08,pending
+ST017,"App freezes on startup",2025-02-09,pending

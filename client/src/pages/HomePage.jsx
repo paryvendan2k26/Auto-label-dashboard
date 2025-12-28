@@ -24,7 +24,7 @@ function HomePage() {
       >
         <Space direction="vertical" size="large" style={{ width: '100%' }}>
           <Title level={1} style={{ margin: 0, color: '#13c2c2' }}>
-            Automated Data Labeling Dashboard
+            Automate your Data Labeling
           </Title>
           <Paragraph style={{ fontSize: 18, color: '#595959', maxWidth: 800, margin: '0 auto' }}>
             Transform your raw data into labeled datasets using AI-powered automation. 

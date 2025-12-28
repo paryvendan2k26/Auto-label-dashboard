@@ -1,17 +1,35 @@
 import { useState } from 'react';
-import { Layout, Menu } from 'antd';
-import { Link, useLocation } from 'react-router-dom';
+import { Layout, Menu, Button, Dropdown, Avatar, Space } from 'antd';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import {
   HomeOutlined,
   UploadOutlined,
   HistoryOutlined,
-} from '@ant-design/icons';
+  LogoutOutlined,
+  UserOutlined,} from '@ant-design/icons';
+import { useAuth } from '../contexts/AuthContext';
 
 const { Header, Sider, Content } = Layout;
 
 function MainLayout({ children }) {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
+  const userMenuItems = [
+    {
+      key: 'logout',
+      icon: <LogoutOutlined />,
+      label: 'Logout',
+      onClick: handleLogout,
+    },
+  ];
 
   const menuItems = [
     {
@@ -59,7 +77,7 @@ function MainLayout({ children }) {
         >
           {!collapsed ? (
             <h2 style={{ margin: 0, color: '#00ED64', fontSize: 18, fontWeight: 700 }}>
-              Data Labeling
+              AnnotateX
             </h2>
           ) : (
             <h2 style={{ margin: 0, color: '#00ED64', fontSize: 18, fontWeight: 700 }}>
@@ -92,6 +110,15 @@ function MainLayout({ children }) {
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             {/* Optional: Add breadcrumb or page title here */}
           </div>
+          
+          {user && (
+            <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">
+              <Space style={{ cursor: 'pointer' }}>
+                <Avatar icon={<UserOutlined />} style={{ backgroundColor: '#00684A' }} />
+                <span style={{ color: '#fff', fontWeight: 600 }}>{user.name}</span>
+              </Space>
+            </Dropdown>
+          )}
         </Header>
 
         <Content

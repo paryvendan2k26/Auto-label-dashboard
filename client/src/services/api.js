@@ -9,9 +9,13 @@ const api = axios.create({
   },
 });
 
-// Request interceptor (optional - for logging)
+// Request interceptor - Add JWT token to requests
 api.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     console.log(`🔵 ${config.method.toUpperCase()} ${config.url}`);
     return config;
   },
@@ -20,7 +24,7 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor (optional - for error handling)
+// Response interceptor - Handle 401 errors (unauthorized)
 api.interceptors.response.use(
   (response) => {
     console.log(`🟢 ${response.config.method.toUpperCase()} ${response.config.url} - Success`);
@@ -28,12 +32,32 @@ api.interceptors.response.use(
   },
   (error) => {
     console.error(`🔴 ${error.config?.method?.toUpperCase()} ${error.config?.url} - Error:`, error.message);
+    
+    // If 401 (Unauthorized), clear token and redirect to login
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      // Only redirect if not already on login/register page
+      if (!window.location.pathname.includes('/login') && !window.location.pathname.includes('/register')) {
+        window.location.href = '/login';
+      }
+    }
+    
     return Promise.reject(error);
   }
 );
 
 // API methods
 export const apiService = {
+  // Auth operations
+  register: (name, email, password) => 
+    api.post('/auth/register', { name, email, password }),
+
+  login: (email, password) => 
+    api.post('/auth/login', { email, password }),
+
+  getCurrentUser: () => 
+    api.get('/auth/me'),
+
   // Dataset operations
   uploadDataset: (file) => {
     const formData = new FormData();

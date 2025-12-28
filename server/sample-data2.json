@@ -1,0 +1,122 @@
+[
+  {
+    "id": "T001",
+    "text": "I was charged twice for my subscription this month.",
+    "createdAt": "2025-01-01",
+    "status": "pending"
+  },
+  {
+    "id": "T002",
+    "text": "The app crashes whenever I try to upload a file.",
+    "createdAt": "2025-01-02",
+    "status": "pending"
+  },
+  {
+    "id": "T003",
+    "text": "Please add dark mode to the dashboard.",
+    "createdAt": "2025-01-03",
+    "status": "pending"
+  },
+  {
+    "id": "T004",
+    "text": "I forgot my password and cannot log in.",
+    "createdAt": "2025-01-03",
+    "status": "pending"
+  },
+  {
+    "id": "T005",
+    "text": "Great service and very quick support response!",
+    "createdAt": "2025-01-04",
+    "status": "pending"
+  },
+  {
+    "id": "T006",
+    "text": "Refund is not processed even after a week.",
+    "createdAt": "2025-01-05",
+    "status": "pending"
+  },
+  {
+    "id": "T007",
+    "text": "Login page shows a 500 error.",
+    "createdAt": "2025-01-06",
+    "status": "pending"
+  },
+  {
+    "id": "T008",
+    "text": "Can you add export to Excel feature?",
+    "createdAt": "2025-01-06",
+    "status": "pending"
+  },
+  {
+    "id": "T009",
+    "text": "My account was suspended without any explanation.",
+    "createdAt": "2025-01-07",
+    "status": "pending"
+  },
+  {
+    "id": "T010",
+    "text": "Everything works perfectly. Good job!",
+    "createdAt": "2025-01-07",
+    "status": "pending"
+  },
+  {
+    "id": "T011",
+    "text": "Payment failed but the amount was deducted.",
+    "createdAt": "2025-01-08",
+    "status": "pending"
+  },
+  {
+    "id": "T012",
+    "text": "The mobile app is very slow on Android devices.",
+    "createdAt": "2025-01-09",
+    "status": "pending"
+  },
+  {
+    "id": "T013",
+    "text": "Need help updating my registered email address.",
+    "createdAt": "2025-01-09",
+    "status": "pending"
+  },
+  {
+    "id": "T014",
+    "text": "Feature request: multi-language support.",
+    "createdAt": "2025-01-10",
+    "status": "pending"
+  },
+  {
+    "id": "T015",
+    "text": "Customer support resolved my issue quickly.",
+    "createdAt": "2025-01-10",
+    "status": "pending"
+  },
+  {
+    "id": "T016",
+    "text": "Unable to download invoice for last month.",
+    "createdAt": "2025-01-11",
+    "status": "pending"
+  },
+  {
+    "id": "T017",
+    "text": "App freezes on startup after the latest update.",
+    "createdAt": "2025-01-12",
+    "status": "pending"
+  },
+  {
+    "id": "T018",
+    "text": "Please provide API documentation.",
+    "createdAt": "2025-01-12",
+    "status": "pending"
+  },
+  {
+    "id": "T019",
+    "text": "Account verification email not received.",
+    "createdAt": "2025-01-13",
+    "status": "pending"
+  },
+  {
+    "id": "T020",
+    "text": "Really happy with the new update and UI.",
+    "createdAt": "2025-01-14",
+    "status": "pending"
+  }
+]

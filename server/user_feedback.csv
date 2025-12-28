@@ -1,0 +1,15 @@
+id,feedback,source,createdAt,status
+UF001,"Dashboard UI is clean and easy to use",web,2025-02-01,pending
+UF002,"App feels slow during peak hours",mobile,2025-02-01,pending
+UF003,"Would love to see more customization options",web,2025-02-02,pending
+UF004,"Notifications are sometimes delayed",mobile,2025-02-02,pending
+UF005,"Great onboarding experience",web,2025-02-03,pending
+UF006,"Too many clicks to perform simple actions",web,2025-02-03,pending
+UF007,"App crashes occasionally on Android",mobile,2025-02-04,pending
+UF008,"Customer support is very responsive",web,2025-02-04,pending
+UF009,"Reports page takes too long to load",web,2025-02-05,pending
+UF010,"Overall experience is positive",mobile,2025-02-05,pending
+UF011,"Search feature needs improvement",web,2025-02-06,pending
+UF012,"Mobile UI could be improved",mobile,2025-02-06,pending
+UF013,"Love the new dark theme",web,2025-02-07,pending
+UF014,"Very intuitive navigation",web,2025-02-07,pending

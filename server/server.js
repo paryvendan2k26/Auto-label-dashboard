@@ -46,20 +46,21 @@ app.get('/health', (req, res) => {
 });
 
 // API Routes
+app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/datasets', require('./routes/dataset.routes'));
 app.use('/api/labels', require('./routes/label.routes'));
 app.use('/api/stats', require('./routes/stats.routes'));
 
-// Error handling middleware (must be last)
-app.use(errorHandler);
-
-// 404 handler
+// 404 handler (must come before error handler)
 app.use((req, res) => {
   res.status(404).json({
     success: false,
     error: 'Route not found'
   });
 });
+
+// Error handling middleware (must be last)
+app.use(errorHandler);
 
 // Start server
 const PORT = process.env.PORT || 5000;
@@ -75,6 +76,9 @@ app.listen(PORT, () => {
   console.log('\n📚 Available Routes:');
   console.log('   GET    /');
   console.log('   GET    /health');
+  console.log('   POST   /api/auth/register');
+  console.log('   POST   /api/auth/login');
+  console.log('   GET    /api/auth/me');
   console.log('   POST   /api/datasets/upload');
   console.log('   GET    /api/datasets');
   console.log('   GET    /api/datasets/:id');

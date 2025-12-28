@@ -1,0 +1,14 @@
+id,review,rating,createdAt,status
+PR001,"Product quality is excellent and delivery was fast",5,2025-02-01,pending
+PR002,"Delivery was late but product is okay",3,2025-02-01,pending
+PR003,"Very poor quality and overpriced",1,2025-02-02,pending
+PR004,"Customer support was unresponsive",2,2025-02-02,pending
+PR005,"Great value for money",5,2025-02-03,pending
+PR006,"Packaging was damaged on arrival",2,2025-02-03,pending
+PR007,"Average experience overall",3,2025-02-04,pending
+PR008,"Excellent customer service experience",5,2025-02-04,pending
+PR009,"Product stopped working after one week",1,2025-02-05,pending
+PR010,"Pricing is reasonable and quality is good",4,2025-02-05,pending
+PR011,"Delivery person was rude",2,2025-02-06,pending
+PR012,"Satisfied with the purchase",4,2025-02-06,pending
+PR013,"Not worth the price",1,2025-02-07,pending

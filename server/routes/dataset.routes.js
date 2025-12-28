@@ -10,7 +10,7 @@ const { Dataset, DataItem } = require('../models');
  * @desc    Upload CSV or JSON file and create dataset
  * @access  Public
  */
-router.post('/upload', upload.single('file'), async (req, res) => {
+router.post('/upload', upload.single('file'), async (req, res, next) => {
   let filePath = null;
   
   try {
@@ -26,15 +26,23 @@ router.post('/upload', upload.single('file'), async (req, res) => {
     const fileType = path.extname(req.file.originalname).toLowerCase().slice(1); // Remove dot
     
     console.log(`📤 Uploading file: ${req.file.originalname} (${fileType})`);
+    console.log(`📁 File path: ${filePath}`);
+    console.log(`📊 File size: ${req.file.size} bytes`);
     
     // Parse file based on type
     let parsedData;
-    if (fileType === 'csv') {
-      parsedData = await fileService.parseCSV(filePath);
-    } else if (fileType === 'json') {
-      parsedData = await fileService.parseJSON(filePath);
-    } else {
-      throw new Error('Unsupported file type');
+    try {
+      if (fileType === 'csv') {
+        parsedData = await fileService.parseCSV(filePath);
+      } else if (fileType === 'json') {
+        parsedData = await fileService.parseJSON(filePath);
+      } else {
+        throw new Error(`Unsupported file type: ${fileType}`);
+      }
+    } catch (parseError) {
+      console.error('❌ File parsing error:', parseError);
+      console.error('❌ Parse error stack:', parseError.stack);
+      throw new Error(`Failed to parse ${fileType.toUpperCase()} file: ${parseError.message}`);
     }
     
     // Validate parsed data
@@ -84,16 +92,18 @@ router.post('/upload', upload.single('file'), async (req, res) => {
     
   } catch (error) {
     console.error('❌ Upload error:', error);
+    console.error('❌ Error stack:', error.stack);
     
     // Delete file if it exists
     if (filePath) {
       fileService.deleteFile(filePath);
     }
     
+    // Pass error to error handler middleware
     res.status(500).json({
-      success: false,
-      error: error.message
-    });
+  success: false,
+  error: error.message || 'File upload failed'
+});
   }
 });
 

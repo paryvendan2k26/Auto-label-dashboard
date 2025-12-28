@@ -1,0 +1,12 @@
+id,description,amount,currency,createdAt,status
+TX001,"Monthly subscription charge",29.99,USD,2025-02-01,pending
+TX002,"Refund for failed transaction",-29.99,USD,2025-02-01,pending
+TX003,"Annual plan upgrade charge",199.00,USD,2025-02-02,pending
+TX004,"Payment gateway timeout",0.00,USD,2025-02-02,pending
+TX005,"Duplicate transaction detected",29.99,USD,2025-02-03,pending
+TX006,"Charge for extra storage add-on",9.99,USD,2025-02-03,pending
+TX007,"Failed payment attempt",0.00,USD,2025-02-04,pending
+TX008,"Partial refund issued",-10.00,USD,2025-02-04,pending
+TX009,"Unexpected charge reported",49.99,USD,2025-02-05,pending
+TX010,"Trial period conversion charge",19.99,USD,2025-02-05,pending
+TX011,"Manual adjustment by admin",-5.00,USD,2025-02-06,pending

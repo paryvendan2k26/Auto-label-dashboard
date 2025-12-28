@@ -5,8 +5,10 @@
 
 const Dataset = require('./Dataset');
 const DataItem = require('./DataItem');
+const User = require('./User');
 
 module.exports = {
   Dataset,
-  DataItem
+  DataItem,
+  User
 };

@@ -38,22 +38,86 @@ class FileService {
   
   /**
    * Parse JSON file and return array of objects
+   * Supports:
+   * - Array of objects: [{...}, {...}]
+   * - Object with array property: {data: [{...}, {...}]}
+   * - JSONL format: one JSON object per line
    */
   async parseJSON(filePath) {
     try {
-      const fileContent = fs.readFileSync(filePath, 'utf-8');
-      const data = JSON.parse(fileContent);
-      
-      // Ensure data is an array
-      if (!Array.isArray(data)) {
-        throw new Error('JSON file must contain an array of objects');
+      // Check if file exists
+      if (!fs.existsSync(filePath)) {
+        throw new Error(`File not found: ${filePath}`);
       }
       
-      console.log(`✅ Parsed ${data.length} items from JSON`);
-      return data;
+      // Check file stats
+      const stats = fs.statSync(filePath);
+      if (stats.size === 0) {
+        throw new Error('JSON file is empty');
+      }
+      
+      const fileContent = fs.readFileSync(filePath, 'utf-8').trim();
+      
+      if (!fileContent) {
+        throw new Error('JSON file is empty');
+      }
+      
+      let data;
+      
+      // Try parsing as regular JSON first
+      try {
+        data = JSON.parse(fileContent);
+      } catch (parseError) {
+        // If standard JSON parsing fails, try JSONL format (JSON Lines)
+        console.log('📝 Attempting JSONL format parsing...');
+        const lines = fileContent.split('\n').filter(line => line.trim());
+        data = lines.map((line, index) => {
+          try {
+            return JSON.parse(line);
+          } catch (lineError) {
+            throw new Error(`Invalid JSON at line ${index + 1}: ${lineError.message}`);
+          }
+        });
+      }
+      
+      // Handle different JSON structures
+      let items = [];
+      
+      if (Array.isArray(data)) {
+        items = data;
+      } else if (typeof data === 'object' && data !== null) {
+        // Check if it's an object with an array property
+        const arrayKeys = Object.keys(data).filter(key => Array.isArray(data[key]));
+        if (arrayKeys.length > 0) {
+          // Use the first array property found
+          items = data[arrayKeys[0]];
+          console.log(`📝 Found array in property: ${arrayKeys[0]}`);
+        } else {
+          // Single object - wrap it in an array
+          items = [data];
+          console.log('📝 Single object wrapped in array');
+        }
+      } else {
+        throw new Error('JSON file must contain an object or array of objects');
+      }
+      
+      // Validate items
+      if (!Array.isArray(items) || items.length === 0) {
+        throw new Error('JSON file must contain at least one data item');
+      }
+      
+      // Ensure all items are objects
+      const invalidItems = items.filter(item => typeof item !== 'object' || item === null);
+      if (invalidItems.length > 0) {
+        throw new Error(`Found ${invalidItems.length} invalid items (must be objects)`);
+      }
+      
+      console.log(`✅ Parsed ${items.length} items from JSON`);
+      return items;
       
     } catch (error) {
       console.error('❌ JSON parsing error:', error);
+      console.error('❌ File path:', filePath);
       throw new Error('Failed to parse JSON file: ' + error.message);
     }
   }
