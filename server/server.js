@@ -12,11 +12,20 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://your-app.vercel.app'  // Update after Step 3
+  ],
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+
 // Middleware
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
-  credentials: true
-}));
+app.use(cors(corsOptions));
+
 
 app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
