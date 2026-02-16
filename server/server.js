@@ -14,6 +14,7 @@ connectDB();
 
 const corsOptions = {
   origin: [
+    'https://auto-label-dashboard-6xxc.vercel.app/',
     'http://localhost:5173',
     'http://localhost:3000',
   ],
