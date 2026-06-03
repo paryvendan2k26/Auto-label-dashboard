@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Card, Form, Input, Button, Typography, Space, message } from 'antd';
-import { UserOutlined, LockOutlined, LoginOutlined } from '@ant-design/icons';
+import { Card, Form, Input, Button, Typography, Space, Alert } from 'antd';
+import { UserOutlined, LockOutlined, LoginOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -10,6 +10,7 @@ function LoginPage() {
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [form] = Form.useForm();
 
   const onFinish = async (values) => {
     setLoading(true);
@@ -19,6 +20,13 @@ function LoginPage() {
     if (result.success) {
       navigate('/');
     }
+  };
+
+  const fillTestCredentials = () => {
+    form.setFieldsValue({
+      email: 'testuser@gmail.com',
+      password: 'test123',
+    });
   };
 
   return (
@@ -48,7 +56,45 @@ function LoginPage() {
             </Text>
           </div>
 
+          {/* Test Credentials Banner */}
+          <Alert
+            message={
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
+                <div>
+                  <div style={{ fontWeight: 600, marginBottom: 4, display: 'flex', alignItems: 'center', gap: 6 }}>
+                    <InfoCircleOutlined />
+                    Test Credentials
+                  </div>
+                  <div style={{ fontSize: 13, color: '#555' }}>
+                    <span style={{ marginRight: 12 }}> testuser@gmail.com</span>
+                    <span> test123</span>
+                  </div>
+                </div>
+                <Button
+                  size="small"
+                  onClick={fillTestCredentials}
+                  style={{
+                    borderColor: '#00684A',
+                    color: '#00684A',
+                    fontWeight: 600,
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  Use These
+                </Button>
+              </div>
+            }
+            type="info"
+            style={{
+              width: '100%',
+              background: '#f0faf6',
+              borderColor: '#b7e4d3',
+              borderRadius: 8,
+            }}
+          />
+
           <Form
+            form={form}
             name="login"
             onFinish={onFinish}
             layout="vertical"
@@ -67,7 +113,6 @@ function LoginPage() {
                 placeholder="Email"
               />
             </Form.Item>
-
             <Form.Item
               name="password"
               rules={[{ required: true, message: 'Please input your password!' }]}
@@ -77,7 +122,6 @@ function LoginPage() {
                 placeholder="Password"
               />
             </Form.Item>
-
             <Form.Item>
               <Button
                 type="primary"
@@ -106,4 +150,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-
